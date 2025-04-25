@@ -1,0 +1,9 @@
+{
+    "Base_Balance": 430,
+    "Upper-Threshold": 2.5,
+    "Lower-Threshold": 2.5,
+    "Sell_ammount": 2.5,
+    "Buy_Ammount": 1.0,
+    "Counter": 0,
+    "Stop_Counter": 2
+}

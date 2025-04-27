@@ -1,9 +1,16 @@
 {
-    "Base_Balance": 430,
-    "Upper-Threshold": 2.5,
-    "Lower-Threshold": 2.5,
-    "Sell_ammount": 2.5,
-    "Buy_Ammount": 1.0,
+    "Manual_Stop": false,
+    "Base_BTC_Balance": 430,
+    "Base_USDC_Balance": 100,
+    "Increase_Base_Amounts_flat": 10,
+    "Upper-Threshold_Percentage": 2.5,
+    "Lower-Threshold_Percentage": 2.5,
+    "Sell_ammount_Percentage": 2.5,
+    "Buy_Ammount_Percentage": 2.5,
+    "Stop_Trade_Active": false,
     "Counter": 0,
-    "Stop_Counter": 2
+    "Stop_Counter": 2,
+    "Counter_Multiplier": 2,
+    "Pause_Purchase_Counter": 0,
+    "Pause_Purchase_Length": 10
 }

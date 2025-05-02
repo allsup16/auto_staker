@@ -22,26 +22,29 @@ def Total(client,accounts):
             amount=np.round(np.float64(products.price),decimals=0)*np.float64(x.available_balance['value'])
         total+=amount
     return np.round(total,decimals=2)
-def BTCValue(client,accounts):
+def MyBTCValue(client,accounts):
     amount=0
     for x in accounts.accounts:
         if x.name == 'BTC Wallet':
             product = client.get_product(f"{x.currency}-USD")
             amount=np.round(np.float64(product.price),decimals=0)*np.float64(x.available_balance['value'])
     return amount    
-def USDCValue(accounts):
+def MyUSDCValue(accounts):
     amount=0
     for x in accounts.accounts:
         if x.name == 'USDC Wallet':
             amount= np.float64(x.available_balance['value'])
     return amount    
+def BTCValue(client):
+    return np.float64(client.get_product("BTC-USD")['price'])
 def BuyBTC(client,instructions):
     size = LowerThreshold(instructions)
     order = client.market_order_buy(client_order_id=str(uuid.uuid4()), product_id="BTC-USDC", quote_size=f"{size:.8f}")
     return order
-def SellBTC(client,instructions):
+def SellBTC(client,accounts,instructions):
     size = UpperThreshold(instructions)
-    order = client.market_order_sell(client_order_id=str(uuid.uuid4()), product_id="BTC-USDC", quote_size=f"{size:.8f}")
+    amount = size/BTCValue(client)
+    order = client.market_order_sell(client_order_id=str(uuid.uuid4()), product_id="BTC-USDC", base_size=f"{amount:.8f}")
     return order
 def BalanceIncreaseReadjust(client,instructions):
     size = instructions['Increase_Base_Amounts_flat']

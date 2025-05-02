@@ -1,3 +1,10 @@
 This project is to create a auto stake trading bot that takes usdc, buy ehtereum and stake's the bought ethereum
 I am doing this in order to set the ground work for future crypto trader and learn typescript, get better with git and
 learn how to use a hetzner server with linux.
+
+
+Refactor List:
+    split helper method into individual files that target specific functionality.
+    implement into hetzner or at least a non local machine.
+    switch the writeinstructions to be outside main loop and inside functions that would change the instructions
+        -This would limit the amount of rewrites to only happen when needed

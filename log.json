@@ -1,0 +1,39 @@
+{"time": 1746145155.2697554, "error": "market_order_sell() missing 1 required positional argument: 'base_size'"}
+{"time": 1746145801.4708524, "error": "400 Client Error: Bad Request {\"error\":\"unknown\",\"error_details\":\"proto:\u00a0(line 1:95): invalid value for enum field side: \\\"sell\\\"\",\"message\":\"proto:\u00a0(line 1:95): invalid value for enum field side: \\\"sell\\\"\"}"}
+{"time": 1746145861.8768792, "error": "400 Client Error: Bad Request {\"error\":\"unknown\",\"error_details\":\"proto:\u00a0(line 1:95): invalid value for enum field side: \\\"sell\\\"\",\"message\":\"proto:\u00a0(line 1:95): invalid value for enum field side: \\\"sell\\\"\"}"}
+{"time": 1746146264.7932715, "error": "name 'order' is not defined"}
+{"time": 1746146291.9120283, "error": "name 'order' is not defined"}
+{"time": 1746146455.8535793, "error": "name 'order' is not defined"}
+{"time": 1746146796.9664662, "error": "name 'order' is not defined"}
+{"time": 1746147573.3955681, "error": "name 'order' is not defined"}
+{"time": 1746147633.9155743, "error": "name 'order' is not defined"}
+{"time": 1746147694.4259539, "error": "name 'order' is not defined"}
+{"time": 1746148412.508676, "error": "name 'order' is not defined"}
+{"time": 1746148761.407925, "error": "name 'BTCValue' is not defined"}
+{"time": 1746148898.9915144, "error": "name 'BTCValue' is not defined"}
+{"time": 1746148967.8545566, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149055.3779616, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149238.4350824, "error": "invalid index to scalar variable."}
+{"time": 1746149298.6909924, "error": "invalid index to scalar variable."}
+{"time": 1746149449.7197793, "error": "string indices must be integers, not 'str'"}
+{"time": 1746149587.3958545, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149716.1144645, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149846.226136, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149914.5753741, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746149978.855407, "error": "module 'helper' has no attribute 'USDCValue'"}
+{"time": 1746150078.3343883, "error": "name 'order' is not defined"}
+{"time": 1746150341.2166426, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150371.9158678, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150402.5959547, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150433.179519, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150463.7652, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150494.3741636, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150531.1868637, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150561.7466526, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150592.324907, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150622.8813765, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150653.5631833, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150765.2670538, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746150825.7461057, "error": "name 'GetStopCounterActive' is not defined"}
+{"time": 1746151931.8303106, "error": "cannot access local variable 'BTC' where it is not associated with a value"}
+{"time": "2025-05-01 20:23:15.158103", "error": "cannot access local variable 'BTC' where it is not associated with a value"}

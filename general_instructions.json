@@ -1,19 +1,19 @@
 {
     "General_Instructions": {
         "Manual_Stop": true,
-        "timer": 30,
-        "Counter": 3,
+        "timer": 10,
+        "Counter": 166,
         "Counter_Max": 168,
         "Seeds": {
             "Short": {
                 "Short_Counter_Trigger": 2,
                 "Seed_Size": 2,
-                "Sell_Threshold_Percentage": 2.5
+                "Sell_Threshold_Percentage": 2
             },
             "Long": {
                 "Long_Counter_Trigger": 168,
                 "Seed_Size": 2,
-                "Sell_Threshold_Percentage": 7.5
+                "Sell_Threshold_Percentage": 5
             }
         },
         "USDC": {

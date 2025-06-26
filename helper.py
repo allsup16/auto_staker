@@ -8,6 +8,7 @@ import uuid
 
 LOG_PATH = Path("log.json")
 
+
 ########### Interact with coinbase ##################### 
 def Total(client,accounts):
     products = ''
@@ -21,7 +22,7 @@ def Total(client,accounts):
             amount=np.round(np.float64(products.price),decimals=0)*np.float64(x.available_balance['value'])
         total+=amount
     return np.round(total,decimals=2)
-def MyBTCAccount(client,accounts):
+def MyBTCAccount(accounts):
     for x in accounts.accounts:
         if x.name == 'BTC Wallet':
             return x
@@ -75,7 +76,60 @@ def SellBTCLimit(client,orderInfo,SeedSellThresh):
     except Exception as e:
         print("Sell failed:", e)
         return None
+def month_spread(client,granularity="ONE_DAY",days_back=30):
+        seconds=86400#seconds in a day
+        now = client.get_unix_time()
+        end_ts = int(now["epoch_seconds"])
+        start_ts = end_ts - (days_back * seconds)  # 30 days ago
+        product = client.get_candles("BTC-USD", start=start_ts, end=end_ts, granularity=granularity)
+        high=0
+        price=float(client.get_product("BTC-USD")['price'])
+        low = price
+        for days in product['candles']:
+            if float(days['low'])<low:
+                low = float(days['low'])
+            if float(days['high'])>high:
+                high = float(days['high'])
+        return price,low,high
+
+
+
+
 ######### Handles json files #####################
+def Dynamic_update(client,general_instructions):
+    Granularity = general_instructions['General_Instructions']['Candles']['Granularity']
+    DaysBack = general_instructions['General_Instructions']['Candles']['Days_Back']
+    price,low,high=month_spread(client,Granularity,DaysBack)
+    DState = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State']
+    DPercentLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Low']
+    DPercentHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_High']
+    DPercentLowChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Low_Change_Trigger']
+    DPercentHighChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_High_Change_Trigger']
+    DDefaultTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Default_Trigger']
+    DMinimumReqiuredLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_Low']
+    DMinimumReqiuredHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_High']
+    DMinimumDefault = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Default_Minimum']
+
+    if price+price*DPercentHigh/100>high and DState != "H":
+        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "H"
+        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DPercentHighChangeTrigger
+        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumReqiuredHigh
+        WriteInstructions("general_instructions",general_instructions)
+    elif low+low*DPercentLow/100<price and DState != "L":
+        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "L"
+        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DPercentLowChangeTrigger
+        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumReqiuredLow
+        WriteInstructions("general_instructions",general_instructions)
+    elif DState != "D":
+        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "D"
+        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DDefaultTrigger
+        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumDefault
+        WriteInstructions("general_instructions",general_instructions)
+    print(price)
+    print("High: ",high)
+    print('Low: ',low+low*DPercentLow/100)
+    print('High: ',price+price*DPercentHigh/100)
+    return LoadInstructions("general_instructions")
 def LoadInstructions(file_name):
     return json.loads(Path(f"{file_name}.json").read_text())
 def WriteInstructions(file_name,altered):

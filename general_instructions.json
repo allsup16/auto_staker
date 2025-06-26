@@ -1,12 +1,12 @@
 {
     "General_Instructions": {
-        "Manual_Stop": false,
+        "Manual_Stop": true,
         "Timer": 10,
         "Counter": 166,
         "Counter_Max": 168,
         "Seeds": {
             "Short": {
-                "Short_Counter_Trigger": 4,
+                "Short_Counter_Trigger": 1,
                 "Seed_Size": 2,
                 "Sell_Threshold_Percentage": 2
             },
@@ -17,7 +17,7 @@
             }
         },
         "USDC": {
-            "Minimum_Required": 400
+            "Minimum_Required": 200
         },
         "Candles": {
             "Granularity": "ONE_DAY",
@@ -25,7 +25,7 @@
         },
         "Dynamic_Adjustment_Short": {
             "Active": true,
-            "State": "H",
+            "State": "L",
             "Percent_Low": 2,
             "Percent_High": 5,
             "Percent_Low_Change_Trigger": 1,

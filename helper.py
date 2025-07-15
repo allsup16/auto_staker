@@ -2,7 +2,6 @@ from pathlib import Path
 from datetime import time
 import http.client
 import json
-import json
 import numpy as np
 import uuid
 
@@ -115,12 +114,12 @@ def Dynamic_update(client,general_instructions):
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DPercentHighChangeTrigger
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumReqiuredHigh
         WriteInstructions("general_instructions",general_instructions)
-    elif low+low*DPercentLow/100<price and DState != "L":
+    elif low+low*DPercentLow/100>price and DState != "L":
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "L"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DPercentLowChangeTrigger
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumReqiuredLow
         WriteInstructions("general_instructions",general_instructions)
-    elif DState != "D":
+    elif DState != "D" and low+low*DPercentLow/100<price and price+price*DPercentHigh/100<high:
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "D"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DDefaultTrigger
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumDefault

@@ -1,3 +1,5 @@
 .env
 *.txt
 log.json
+__pycache__/
+venv/

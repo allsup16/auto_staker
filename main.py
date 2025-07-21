@@ -71,10 +71,10 @@ def main():
                             sellReply=helper.SellBTCLimit(client,orderInfo,LongSeedSellThresh,LongPecentToBeSold)
                             print(sellReply)
 
-                if general_instructions['General_Instructions']['Counter']+1<=CounterMax:
+                if general_instructions['General_Instructions']['Counter']+1<=CounterMax+1:
                     general_instructions['General_Instructions']['Counter']+=1
                 else:
-                     general_instructions['General_Instructions']['Counter']=0
+                     general_instructions['General_Instructions']['Counter']=1
                 helper.WriteInstructions("general_instructions",general_instructions)
     except Exception as e:
             helper.write_log_entry({"time": str(datetime.now()),"error": str(e)})

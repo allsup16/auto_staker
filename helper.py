@@ -56,13 +56,14 @@ def BuyBTC(client, seed):
     except Exception as e:
         print("Buy failed:", e)
         return None
-def SellBTCLimit(client,orderInfo,SeedSellThresh):
+def SellBTCLimit(client,orderInfo,SeedSellThresh,PercentToSell):
     try: 
         clientId = str(uuid.uuid4())
         productId = orderInfo['order']['product_id']
         filledSize = float(orderInfo['order']['filled_size'])
         boughtPrice = float(orderInfo['order']['average_filled_price'])
         targetSalePrice = boughtPrice + boughtPrice * (SeedSellThresh / 100)
+        filledSize = filledSize * (PercentToSell/100)
         limit_price = f"{targetSalePrice:.2f}"
         base_size = f"{filledSize:.8f}"
         order = client.limit_order_gtc_sell(

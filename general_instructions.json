@@ -2,22 +2,28 @@
     "General_Instructions": {
         "Manual_Stop": true,
         "Timer": 10,
-        "Counter": 166,
-        "Counter_Max": 168,
+        "Counter": 324,
+        "Counter_Max": 336,
         "Seeds": {
             "Short": {
-                "Short_Counter_Trigger": 1,
+                "Active_Buy": false,
+                "Short_Counter_Trigger": 4,
                 "Seed_Size": 2,
-                "Sell_Threshold_Percentage": 2
+                "Active_Sell": false,
+                "Sell_Threshold_Percentage": 2,
+                "Percent_To_Be_Sold": 100
             },
             "Long": {
-                "Long_Counter_Trigger": 168,
-                "Seed_Size": 2,
-                "Sell_Threshold_Percentage": 5
+                "Active_Buy": false,
+                "Long_Counter_Trigger": 336,
+                "Seed_Size": 1,
+                "Active_Sell": false,
+                "Sell_Threshold_Percentage": 10,
+                "Percent_To_Be_Sold": 93
             }
         },
         "USDC": {
-            "Minimum_Required": 200
+            "Minimum_Required": 300
         },
         "Candles": {
             "Granularity": "ONE_DAY",
@@ -25,15 +31,23 @@
         },
         "Dynamic_Adjustment_Short": {
             "Active": true,
-            "State": "L",
+            "State": "D",
             "Percent_Low": 2,
-            "Percent_High": 5,
+            "Percent_High": 3,
             "Percent_Low_Change_Trigger": 1,
-            "Percent_High_Change_Trigger": 4,
-            "Default_Trigger": 2,
+            "Percent_High_Change_Trigger": 8,
+            "Default_Trigger": 4,
             "Minimum_Required_Low": 200,
             "Minimum_Required_High": 400,
             "Default_Minimum": 300
+        },
+        "Sheets": {
+            "Active": false,
+            "Scope": "https://www.googleapis.com/auth/spreadsheets",
+            "Service_Account_File": "service_account.json",
+            "Spreadsheet_id": "Spreadsheet_id",
+            "Default_Range": "Sheet1!A:D",
+            "Test": true
         }
     }
 }

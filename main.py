@@ -29,35 +29,52 @@ def main():
         Timer = general_instructions['General_Instructions']['Timer']
         Counter = general_instructions['General_Instructions']['Counter']
         CounterMax = general_instructions['General_Instructions']['Counter_Max']
+
+        ShortActiveBuy = general_instructions['General_Instructions']['Seeds']['Short']['Active_Buy']
         ShortCounter = general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger']
         ShortSeedSize = general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size']
+        ShortActiveSell = general_instructions['General_Instructions']['Seeds']['Short']['Active_Sell']
         ShortSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage']
+        ShortPecentToBeSold = general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold']
+
+
+        LongActiveBuy = general_instructions['General_Instructions']['Seeds']['Long']['Active_Buy']
         LongCounter = general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger']
         LongSeedSize = general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size']
+        LongActiveSell = general_instructions['General_Instructions']['Seeds']['Long']['Active_Sell']
         LongSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage']
+        LongPecentToBeSold = general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold']
+
         USDCMin=general_instructions['General_Instructions']['USDC']['Minimum_Required']
 
 
         if Active:
             if helper.MyUSDCValue(accounts) >= USDCMin:
                 if Counter%ShortCounter==0:
-                    buyReply = helper.BuyBTC(client,ShortSeedSize)
-                    time.sleep(Timer)
-                    orderId = buyReply['success_response']['order_id']
-                    orderInfo = helper.OrderInfo(client,orderId)
-                    sellReply=helper.SellBTCLimit(client,orderInfo,ShortSeedSellThresh)
+                    if ShortActiveBuy:
+                        buyReply = helper.BuyBTC(client,ShortSeedSize)
+                        time.sleep(Timer)
+                        orderId = buyReply['success_response']['order_id']
+                        orderInfo = helper.OrderInfo(client,orderId)
+                        if ShortActiveSell:
+                            sellReply=helper.SellBTCLimit(client,orderInfo,ShortSeedSellThresh,ShortPecentToBeSold)
+                
+                time.sleep(Timer)
+                
                 if Counter%LongCounter==0:
-                    time.sleep(Timer)
-                    buyReply = helper.BuyBTC(client,LongSeedSize)
-                    time.sleep(Timer)
-                    orderId = buyReply['success_response']['order_id']
-                    orderInfo = helper.OrderInfo(client,orderId)
-                    sellReply=helper.SellBTCLimit(client,orderInfo,LongSeedSellThresh)
-                    print(sellReply)
+                    if LongActiveBuy:
+                        buyReply = helper.BuyBTC(client,LongSeedSize)
+                        time.sleep(Timer)
+                        orderId = buyReply['success_response']['order_id']
+                        orderInfo = helper.OrderInfo(client,orderId)
+                        if LongActiveSell:
+                            sellReply=helper.SellBTCLimit(client,orderInfo,LongSeedSellThresh,LongPecentToBeSold)
+                            print(sellReply)
+
                 if general_instructions['General_Instructions']['Counter']+1<=CounterMax:
                     general_instructions['General_Instructions']['Counter']+=1
                 else:
-                     general_instructions['General_Instructions']['Counter']=1
+                     general_instructions['General_Instructions']['Counter']=0
                 helper.WriteInstructions("general_instructions",general_instructions)
     except Exception as e:
             helper.write_log_entry({"time": str(datetime.now()),"error": str(e)})

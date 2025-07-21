@@ -3,3 +3,5 @@
 log.json
 __pycache__/
 venv/
+crypto-sheets.json
+sheets.py

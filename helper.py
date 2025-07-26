@@ -84,7 +84,7 @@ def month_spread(client,granularity="ONE_DAY",days_back=30):
         product = client.get_candles("BTC-USD", start=start_ts, end=end_ts, granularity=granularity)
         high=0
         price=float(client.get_product("BTC-USD")['price'])
-        low = price
+        low = float('inf')
         for days in product['candles']:
             if float(days['low'])<low:
                 low = float(days['low'])
@@ -109,7 +109,7 @@ def Dynamic_update(client,general_instructions):
     DMinimumReqiuredLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_Low']
     DMinimumReqiuredHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_High']
     DMinimumDefault = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Default_Minimum']
-
+    print(low+low*DPercentLow/100>price)
     if price+price*DPercentHigh/100>high and DState != "H":
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "H"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DPercentHighChangeTrigger
@@ -125,8 +125,7 @@ def Dynamic_update(client,general_instructions):
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DDefaultTrigger
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DMinimumDefault
         WriteInstructions("general_instructions",general_instructions)
-    print(price)
-    print("High: ",high)
+    print('Price:',price)
     print('Low: ',low+low*DPercentLow/100)
     print('High: ',price+price*DPercentHigh/100)
     return LoadInstructions("general_instructions")

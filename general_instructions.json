@@ -2,7 +2,7 @@
     "General_Instructions": {
         "Manual_Stop": true,
         "Timer": 10,
-        "Counter": 324,
+        "Counter": 329,
         "Counter_Max": 336,
         "Seeds": {
             "Short": {
@@ -27,12 +27,12 @@
         },
         "Candles": {
             "Granularity": "ONE_DAY",
-            "Days_Back": 30
+            "Days_Back": 15
         },
         "Dynamic_Adjustment_Short": {
             "Active": true,
             "State": "D",
-            "Percent_Low": 2,
+            "Percent_Low": 1.5,
             "Percent_High": 3,
             "Percent_Low_Change_Trigger": 1,
             "Percent_High_Change_Trigger": 8,

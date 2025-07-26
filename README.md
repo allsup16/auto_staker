@@ -1,29 +1,63 @@
-This project is to create a auto stake trading bot that takes usdc, buy ehtereum and stake's the bought ethereum
-I am doing this in order to set the ground work for future crypto trader and learn typescript, get better with git and
-learn how to use a hetzner server with linux.
+Auto Trader – BTC Scalping Bot
+Originally designed as an auto-staking tool for Ethereum, this project has evolved into an automated BTC scalping trader.
+It executes both short-term trades for quick profits and long-term trades to accumulate BTC holdings, all based on customizable JSON instructions. It is used for a consistent form of income and
 
+JSON Instructions Overview
+General Controls
+Manual_Stop: Halts the script completely when set to true.
 
-Refactor List:
-    split helper method into individual files that target specific functionality.
-    implement into hetzner or at least a non local machine.
-    switch the writeinstructions to be outside main loop and inside functions that would change the instructions
-        -This would limit the amount of rewrites to only happen when needed
+Timer: Delay (in seconds) between each execution cycle.
 
-json explanation
-    "info":
-    {
-    "Manual_Stop":"Manual way to run the script.",
-    "account_set_balance":"Set amount for the account to be balanced around, percentages revolve around this number.",
-    "held_amount":"How much is owned within the account",
-    "update_increase_amount":"when an update happens, this is the amount the set balance will update by.",
-    "access_to_account":"If the account is allowed to make a trade",
-    "limit_percentage":"amount allowed to be traded from set balance before trades stop working",
-    "limit":"if balance gets below this cost access_to_account becomes false",
-    "sell_threshold_percentage":"percentage point that when reached will trigger sell",
-    "sell_ammount_Percentage":"percentage point of how much is to be sold",
-    "sell_amount":"amount to be sold when trigger is reached",
-    "buy_threshold_percentage":"percentage point that when reached will trigger buy",
-    "buy_Ammount_Percentage":"percentage point of how much is to be bought",
-    "buy_amount":"amount to be bought when trigger is reached",
-    "trigger_update_amount":"When this amount is reached update accounts with new balances"
-    }
+Counter / Counter_Max: Tracks how many times the script has run; resets after reaching the max (e.g., 336 = number of half-hours in a week).
+
+Trade Strategies (Seeds)
+Short: Quick-turnover trades aiming for small, frequent profits.
+
+Active_Buy / Active_Sell: Toggle buying or selling on/off.
+
+Short_Counter_Trigger: Counter value (modulo) that triggers a buy.
+
+Seed_Size: Amount of USDC allocated per trade.
+
+Sell_Threshold_Percentage: Target percentage gain for selling.
+
+Percent_To_Be_Sold: Portion of purchased BTC sold at target price.
+
+Long: Long-term trades designed for gradual BTC accumulation.
+
+Long_Counter_Trigger: Counter value that triggers a long-term buy.
+
+Seed_Size: Amount of USDC per long-term trade.
+
+Sell_Threshold_Percentage: Profit target for selling.
+
+Percent_To_Be_Sold: Percentage of BTC sold; remaining BTC is kept for long-term holding.
+
+Capital Management
+USDC.Minimum_Required: Minimum USDC balance needed before executing trades.
+
+Market Data
+Candles:
+
+Granularity: Timeframe of candlestick data (e.g., ONE_DAY).
+
+Days_Back: Number of days used to determine 30-day highs and lows.
+
+Dynamic_Adjustment_Short: Adjusts short-seed thresholds dynamically.
+
+State: Current state (L = low, H = high, etc.).
+
+Percent_Low / Percent_High: Thresholds for triggering state changes.
+
+Change_Triggers: How many confirmations are required before acting.
+
+Minimum_Required_Low / High: Minimum USDC per state.
+
+Google Sheets Integration
+Sheets.Active: Enables logging to Google Sheets.
+
+Scope: API scope for Sheets access.
+
+Service_Account_File: JSON key for Google API authentication.
+
+Spreadsheet_id / Default_Range: Where trade logs are stored.

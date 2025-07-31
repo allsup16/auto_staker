@@ -2,12 +2,12 @@
     "General_Instructions": {
         "Manual_Stop": true,
         "Timer": 10,
-        "Counter": 9,
+        "Counter": 19,
         "Counter_Max": 336,
         "Seeds": {
             "Short": {
                 "Active_Buy": false,
-                "Short_Counter_Trigger": 2,
+                "Short_Counter_Trigger": 12,
                 "Seed_Size": 2,
                 "Active_Sell": false,
                 "Sell_Threshold_Percentage": 2,
@@ -24,7 +24,7 @@
             }
         },
         "USDC": {
-            "Minimum_Required": 100
+            "Minimum_Required": 300
         },
         "Candles": {
             "Granularity": "ONE_HOUR",
@@ -32,7 +32,7 @@
         },
         "Dynamic_Adjustment_Short": {
             "Active": true,
-            "State": "ML",
+            "State": "H",
             "Percent_Low": 0.1,
             "Percent_High": 0.5,
             "Percent_Medium_Low": 2.5,
@@ -65,7 +65,7 @@
         },
         "Dynamic_Adjustment_Long": {
             "Active": true,
-            "State": "ML",
+            "State": "H",
             "Percent_Low": 0.5,
             "Percent_High": 0.5,
             "Percent_Medium_Low": 2.5,
@@ -102,7 +102,19 @@
             "Service_Account_File": "service_account.json",
             "Spreadsheet_id": "Spreadsheet_id",
             "Default_Range": "Sheet1!A:D",
-            "Test": true
+            "Test": true,
+            "Columns Headers": {
+                "Date": "Date_Time",
+                "Order_Id": "String",
+                "Is_Filled": "Bool",
+                "Currency": "String",
+                "Side": "String",
+                "Order_Type": "String",
+                "Quantity": "Float",
+                "Fee": "Float",
+                "Total_USDC": "Float",
+                "State": "String"
+            }
         }
     }
 }

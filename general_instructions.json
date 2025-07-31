@@ -65,7 +65,7 @@
         },
         "Dynamic_Adjustment_Long": {
             "Active": true,
-            "State": "H",
+            "State": "D",
             "Percent_Low": 0.5,
             "Percent_High": 0.5,
             "Percent_Medium_Low": 2.5,

@@ -204,7 +204,7 @@ def Short_Update(general_instructions,price,low,high,State):
             general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
     return general_instructions,State
     
-
+    #Update to long seeds
 def Long_Update(general_instructions,price,low,high,State):
     #Modify State
     PercentLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Low']

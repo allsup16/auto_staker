@@ -1,6 +1,6 @@
 from coinbase.rest import RESTClient
 from dotenv import load_dotenv
-from datetime import datetime
+from datetime import datetime,timezone
 import os
 import helper
 import time
@@ -11,7 +11,8 @@ load_dotenv()
 
 api_key = os.getenv('Coinbase_API_Key_Name')
 api_secret = os.getenv('Coinbase_Private_Key')
-
+#with open("/root/auto_staker/logs/cron.log", "a") as log:                                                                   
+#    log.write(f"\n[{datetime.now(timezone.utc)}] main.py started\n")
 
 
 def main():

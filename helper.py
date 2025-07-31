@@ -100,11 +100,16 @@ def Dynamic_update(client,general_instructions):
     Granularity = general_instructions['General_Instructions']['Candles']['Granularity']
     DaysBack = general_instructions['General_Instructions']['Candles']['Days_Back']
     price,low,high=month_spread(client,Granularity,DaysBack)
+    print("Price: ",price)
+    print("Low: ",low)
+    print("High: ",high)
     #Current State
     ShortState = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State']
     LongState = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State']
-    general_instructions = Short_Update(general_instructions,price,low,high,ShortState)
-    general_instructions = Long_Update(general_instructions,price,low,high,LongState)
+    general_instructions,StateS = Short_Update(general_instructions,price,low,high,ShortState)
+    general_instructions,StateL = Long_Update(general_instructions,price,low,high,LongState)
+    print("Short State: ", StateS)
+    print("Long State: ", StateL)
     WriteInstructions("general_instructions",general_instructions)
     return LoadInstructions("general_instructions")
 
@@ -192,7 +197,7 @@ def Short_Update(general_instructions,price,low,high,State):
             general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = DefaultSellThreshHold
             general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = DefaultPercentToBeSold
             general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
-    return general_instructions
+    return general_instructions,State
     
 
 def Long_Update(general_instructions,price,low,high,State):
@@ -279,7 +284,7 @@ def Long_Update(general_instructions,price,low,high,State):
             general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = DefaultSellThreshHold
             general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = DefaultPercentToBeSold
             general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
-    return general_instructions
+    return general_instructions,State
 
 
 def LoadInstructions(file_name):

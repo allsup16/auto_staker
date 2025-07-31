@@ -2,12 +2,12 @@
     "General_Instructions": {
         "Manual_Stop": true,
         "Timer": 10,
-        "Counter": 335,
+        "Counter": 9,
         "Counter_Max": 336,
         "Seeds": {
             "Short": {
                 "Active_Buy": false,
-                "Short_Counter_Trigger": 4,
+                "Short_Counter_Trigger": 2,
                 "Seed_Size": 2,
                 "Active_Sell": false,
                 "Sell_Threshold_Percentage": 2,
@@ -24,16 +24,16 @@
             }
         },
         "USDC": {
-            "Minimum_Required": 300
+            "Minimum_Required": 100
         },
         "Candles": {
-            "Granularity": "ONE_DAY",
-            "Days_Back": 15
+            "Granularity": "ONE_HOUR",
+            "Days_Back": 1
         },
         "Dynamic_Adjustment_Short": {
             "Active": true,
-            "State": "D",
-            "Percent_Low": 0.5,
+            "State": "ML",
+            "Percent_Low": 0.1,
             "Percent_High": 0.5,
             "Percent_Medium_Low": 2.5,
             "Percent_Medium_High": 2.5,
@@ -65,11 +65,11 @@
         },
         "Dynamic_Adjustment_Long": {
             "Active": true,
-            "State": "MH",
+            "State": "ML",
             "Percent_Low": 0.5,
-            "Percent_High": 3,
+            "Percent_High": 0.5,
             "Percent_Medium_Low": 2.5,
-            "Percent_Medium_High": 5,
+            "Percent_Medium_High": 3,
             "Percent_Low_Change_Trigger": 168,
             "Percent_High_Change_Trigger": 168,
             "Percent_Medium_Low_Change_Trigger": 168,

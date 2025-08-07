@@ -1,6 +1,7 @@
 from coinbase.rest import RESTClient
 from dotenv import load_dotenv
 from datetime import datetime,timezone
+import sheets
 import os
 import helper
 import time
@@ -21,7 +22,9 @@ def main():
         accounts = client.get_accounts()
         general_instructions=helper.LoadInstructions("general_instructions")
         DActive = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Active']
-
+        Sheets = general_instructions['General_Instructions']['Sheets']
+        print(Sheets)
+        #row = [trade_dict.get(headers,'') for header in headers]
         if DActive:
             general_instructions=helper.Dynamic_update(client,general_instructions)
         
@@ -77,8 +80,14 @@ def main():
                 else:
                      general_instructions['General_Instructions']['Counter']=1
                 helper.WriteInstructions("general_instructions",general_instructions)
+
+            if Sheets["Active"] or Sheets["Test"]:
+                print('Cred:\n')
+                cred = sheets.sheets_auth(Sheets)
+                print("Insert:\n")
+                sheets.insert_value(Sheets,cred,True)    
     except Exception as e:
-            helper.write_log_entry({"time": str(datetime.now()),"error": str(e)})
+            print(e)
 
 if __name__ == "__main__":
     main()

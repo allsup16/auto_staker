@@ -162,7 +162,7 @@ def Short_Update(general_instructions,price,low,high,State):
 
 
     if High_C and State != "H": #High
-        
+        State = "H"
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "H"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = HighPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = HighSeedSize
@@ -171,6 +171,7 @@ def Short_Update(general_instructions,price,low,high,State):
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = HighMinimumReqiured
 
     elif MHigh_C and State != "MH" and High_C==False: #Medium High
+        State = "MH"
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "MH"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = MediumHighPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = MediumHighSeedSize
@@ -179,6 +180,7 @@ def Short_Update(general_instructions,price,low,high,State):
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumHighMinimumReqiured
 
     elif Low_C and State != "L" and MHigh_C == False and High_C == False: #Low
+        State = "L"
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "L"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = LowPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = LowSeedSize
@@ -187,6 +189,7 @@ def Short_Update(general_instructions,price,low,high,State):
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = LowMinimumReqiured
 
     elif MLow_C and State != "ML" and MHigh_C == False and High_C == False and Low_C == False: #Medium Low
+        State = "ML"
         general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "ML"
         general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = MediumLowPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = MediumLowSeedSize
@@ -196,6 +199,7 @@ def Short_Update(general_instructions,price,low,high,State):
     
     else: #Default
         if State!="D" and MHigh_C == False and High_C == False and Low_C == False and MLow_C == False: 
+            State = "D"
             general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "D"
             general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DefaultTrigger
             general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = DefaultSeedSize
@@ -256,7 +260,7 @@ def Long_Update(general_instructions,price,low,high,State):
     if High_C and State != "H": #High
         
         general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "H"
-        general_instructions['General_Instructions']['Seeds']['Long']['Short_Counter_Trigger'] = HighPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = HighPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = HighSeedSize
         general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = HighSellThreshHold
         general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = HighPercentToBeSold
@@ -264,7 +268,7 @@ def Long_Update(general_instructions,price,low,high,State):
 
     elif MHigh_C and State != "MH" and High_C==False: #Medium High
         general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "MH"
-        general_instructions['General_Instructions']['Seeds']['Long']['Short_Counter_Trigger'] = MediumHighPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = MediumHighPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = MediumHighSeedSize
         general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = MediumHighSellThreshHold
         general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = MediumHighPercentToBeSold
@@ -272,7 +276,7 @@ def Long_Update(general_instructions,price,low,high,State):
 
     elif Low_C and State != "L" and MHigh_C == False and High_C == False: #Low
         general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "L"
-        general_instructions['General_Instructions']['Seeds']['Long']['Short_Counter_Trigger'] = LowPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = LowPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = LowSeedSize
         general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = LowSellThreshHold
         general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = LowPercentToBeSold
@@ -280,7 +284,7 @@ def Long_Update(general_instructions,price,low,high,State):
 
     elif MLow_C and State != "ML" and MHigh_C == False and High_C == False and Low_C == False: #Medium Low
         general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "ML"
-        general_instructions['General_Instructions']['Seeds']['Long']['Short_Counter_Trigger'] = MediumLowPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = MediumLowPercentChangeTrigger
         general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = MediumLowSeedSize
         general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = MediumLowSellThreshHold
         general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = MediumLowPercentToBeSold
@@ -289,7 +293,7 @@ def Long_Update(general_instructions,price,low,high,State):
     else: #Default
         if State!="D" and MHigh_C == False and High_C == False and Low_C == False and MLow_C == False:
             general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "D"
-            general_instructions['General_Instructions']['Seeds']['Long']['Short_Counter_Trigger'] = DefaultTrigger
+            general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = DefaultTrigger
             general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = DefaultSeedSize
             general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = DefaultSellThreshHold
             general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = DefaultPercentToBeSold

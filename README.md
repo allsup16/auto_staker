@@ -1,6 +1,10 @@
-Auto Trader – BTC Scalping Bot
-Originally designed as an auto-staking tool for Ethereum, this project has evolved into an automated BTC scalping trader.
-It executes both short-term trades for quick profits and long-term trades to accumulate BTC holdings, all based on customizable JSON instructions. It is used for a consistent form of income and
+Coinbase Automated Trader
+Originally created as an auto staker for Etherium, this project became an automated crypto trading system built using the Coinbase SDK and integrated directly with the Coinbase API. The bot uses a scalping-based trading strategy, dynamically adjusting its parameters based on real-time market conditions to optimize trade performance.
+
+Key features:
+-Dynamic strategy tuning to adapt to changing volatility and price ranges
+-Automated trade execution via the Coinbase API
+-Built with Python, leveraging modular design for easy adjustments and monitoring
 
 JSON Instructions Overview
 General Controls

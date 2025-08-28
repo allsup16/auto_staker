@@ -106,199 +106,111 @@ def Dynamic_update(client,general_instructions):
     #Current State
     ShortState = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State']
     LongState = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State']
-    general_instructions,StateS = Short_Update(general_instructions,price,low,high,ShortState)
-    general_instructions,StateL = Long_Update(general_instructions,price,low,high,LongState)
-    print("Short State: ", StateS)
-    print("Long State: ", StateL)
+    general_instructions = Update(general_instructions,price,'Dynamic_Adjustment_Short',low,high,ShortState)
+    general_instructions = Update(general_instructions,price,'Dynamic_Adjustment_Long',low,high,LongState)
     WriteInstructions("general_instructions",general_instructions)
     return LoadInstructions("general_instructions")
 
-def Short_Update(general_instructions,price,low,high,State):
+def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
     #Modify State
-    PercentLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Low']
-    PercentHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_High']
-    PercentMediumLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Medium_Low']
-    PercentMediumHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Medium_High']
+    PercentLow = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Low']
+    PercentHigh = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_High']
+    PercentMediumLow = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Medium_Low']
+    PercentMediumHigh = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Medium_High']
 
     #Modify triggers in the State
-    LowPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Low_Change_Trigger']
-    HighPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_High_Change_Trigger']
-    MediumLowPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Medium_Low_Change_Trigger']
-    MediumHighPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_Medium_High_Change_Trigger']
-    DefaultTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Trigger_Default']
+    LowPercentChangeTrigger = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Low_Change_Trigger']
+    HighPercentChangeTrigger = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_High_Change_Trigger']
+    MediumLowPercentChangeTrigger = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Medium_Low_Change_Trigger']
+    MediumHighPercentChangeTrigger = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_Medium_High_Change_Trigger']
+    DefaultTrigger = general_instructions['General_Instructions'][Dynamic_Adjustment]['Trigger_Default']
 
     #Modify amount to used in each purchase
-    LowSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Seed_Size_Low']
-    HighSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Seed_Size_High']
-    MediumLowSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Seed_Size_Medium_Low']
-    MediumHighSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Seed_Size_Medium_High']
-    DefaultSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Seed_Size_Default']
+    LowSeedSize = general_instructions['General_Instructions'][Dynamic_Adjustment]['Seed_Size_Low']
+    HighSeedSize = general_instructions['General_Instructions'][Dynamic_Adjustment]['Seed_Size_High']
+    MediumLowSeedSize = general_instructions['General_Instructions'][Dynamic_Adjustment]['Seed_Size_Medium_Low']
+    MediumHighSeedSize = general_instructions['General_Instructions'][Dynamic_Adjustment]['Seed_Size_Medium_High']
+    DefaultSeedSize = general_instructions['General_Instructions'][Dynamic_Adjustment]['Seed_Size_Default']
 
     #Modify Threshold amounts (How much price must increase to sell)
-    LowSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Sell_Threshold_Percentage_Low']
-    HighSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Sell_Threshold_Percentage_High']
-    MediumLowSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Sell_Threshold_Percentage_Medium_Low']
-    MediumHighSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Sell_Threshold_Percentage_Medium_High']
-    DefaultSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Sell_Threshold_Percentage_Default']
+    LowSellThreshHold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Sell_Threshold_Percentage_Low']
+    HighSellThreshHold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Sell_Threshold_Percentage_High']
+    MediumLowSellThreshHold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Sell_Threshold_Percentage_Medium_Low']
+    MediumHighSellThreshHold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Sell_Threshold_Percentage_Medium_High']
+    DefaultSellThreshHold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Sell_Threshold_Percentage_Default']
 
     #Modify percentage of amount of purchase that is sold
-    LowPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_To_Be_Sold_Low']
-    HighPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_To_Be_Sold_High']
-    MediumLowPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_To_Be_Sold_Medium_Low']
-    MediumHighPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_To_Be_Sold_Medium_High']
-    DefaultPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Percent_To_Be_Sold_Default']
+    LowPercentToBeSold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_To_Be_Sold_Low']
+    HighPercentToBeSold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_To_Be_Sold_High']
+    MediumLowPercentToBeSold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_To_Be_Sold_Medium_Low']
+    MediumHighPercentToBeSold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_To_Be_Sold_Medium_High']
+    DefaultPercentToBeSold = general_instructions['General_Instructions'][Dynamic_Adjustment]['Percent_To_Be_Sold_Default']
 
     #Modify the funds that are manditory to be kept in USDC
-    LowMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_Low']
-    HighMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_High']
-    MediumLowMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_Medium_Low']
-    MediumHighMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Required_Medium_High']
-    DefaultMinimum = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Minimum_Default']
+    LowMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_Low']
+    HighMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_High']
+    MediumLowMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_Medium_Low']
+    MediumHighMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_Medium_High']
+    DefaultMinimum = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Default']
 
     High_C = price+price*PercentHigh/100>high
     MHigh_C = price+price*PercentMediumHigh/100>high
     Low_C =low+low*PercentLow/100>price
     MLow_C = low+low*PercentMediumLow/100>price
 
+    if Dynamic_Adjustment == 'Dynamic_Adjustment_Short':
+        Seed_Strategy = 'Short'
+    elif Dynamic_Adjustment == 'Dynamic_Adjustment_Long':
+        Seed_Strategy = 'Long'
 
     if High_C and State != "H": #High
         State = "H"
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "H"
-        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = HighPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = HighSeedSize
-        general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = HighSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = HighPercentToBeSold
+        general_instructions['General_Instructions'][Dynamic_Adjustment]['State'] = "H"
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Counter_Trigger'] = HighPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = HighSeedSize
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = HighSellThreshHold
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = HighPercentToBeSold
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = HighMinimumReqiured
+
+
 
     elif MHigh_C and State != "MH" and High_C==False: #Medium High
         State = "MH"
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "MH"
-        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = MediumHighPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = MediumHighSeedSize
-        general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = MediumHighSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = MediumHighPercentToBeSold
+        general_instructions['General_Instructions'][Dynamic_Adjustment]['State'] = "MH"
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Counter_Trigger'] = MediumHighPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = MediumHighSeedSize
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = MediumHighSellThreshHold
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = MediumHighPercentToBeSold
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumHighMinimumReqiured
 
     elif Low_C and State != "L" and MHigh_C == False and High_C == False: #Low
         State = "L"
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "L"
-        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = LowPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = LowSeedSize
-        general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = LowSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = LowPercentToBeSold
+        general_instructions['General_Instructions'][Dynamic_Adjustment]['State'] = "L"
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Counter_Trigger'] = LowPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = LowSeedSize
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = LowSellThreshHold
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = LowPercentToBeSold
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = LowMinimumReqiured
 
     elif MLow_C and State != "ML" and MHigh_C == False and High_C == False and Low_C == False: #Medium Low
         State = "ML"
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "ML"
-        general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = MediumLowPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = MediumLowSeedSize
-        general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = MediumLowSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = MediumLowPercentToBeSold
+        general_instructions['General_Instructions'][Dynamic_Adjustment]['State'] = "ML"
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Counter_Trigger'] = MediumLowPercentChangeTrigger
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = MediumLowSeedSize
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = MediumLowSellThreshHold
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = MediumLowPercentToBeSold
         general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumLowMinimumReqiured
     
     else: #Default
         if State!="D" and MHigh_C == False and High_C == False and Low_C == False and MLow_C == False: 
             State = "D"
-            general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['State'] = "D"
-            general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger'] = DefaultTrigger
-            general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size'] = DefaultSeedSize
-            general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage'] = DefaultSellThreshHold
-            general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold'] = DefaultPercentToBeSold
+            general_instructions['General_Instructions'][Dynamic_Adjustment]['State'] = "D"
+            general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Counter_Trigger'] = DefaultTrigger
+            general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = DefaultSeedSize
+            general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = DefaultSellThreshHold
+            general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = DefaultPercentToBeSold
             general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
-    return general_instructions,State
-    
-    #Update to long seeds
-def Long_Update(general_instructions,price,low,high,State):
-    #Modify State
-    PercentLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Low']
-    PercentHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_High']
-    PercentMediumLow = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Medium_Low']
-    PercentMediumHigh = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Medium_High']
-
-    #Modify triggers in the State
-    LowPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Low_Change_Trigger']
-    HighPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_High_Change_Trigger']
-    MediumLowPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Medium_Low_Change_Trigger']
-    MediumHighPercentChangeTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_Medium_High_Change_Trigger']
-    DefaultTrigger = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Trigger_Default']
-
-    #Modify amount to used in each purchase
-    LowSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Seed_Size_Low']
-    HighSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Seed_Size_High']
-    MediumLowSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Seed_Size_Medium_Low']
-    MediumHighSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Seed_Size_Medium_High']
-    DefaultSeedSize = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Seed_Size_Default']
-
-    #Modify Threshold amounts (How much price must increase to sell)
-    LowSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Sell_Threshold_Percentage_Low']
-    HighSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Sell_Threshold_Percentage_High']
-    MediumLowSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Sell_Threshold_Percentage_Medium_Low']
-    MediumHighSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Sell_Threshold_Percentage_Medium_High']
-    DefaultSellThreshHold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Sell_Threshold_Percentage_Default']
-
-    #Modify percentage of amount of purchase that is sold
-    LowPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_To_Be_Sold_Low']
-    HighPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_To_Be_Sold_High']
-    MediumLowPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_To_Be_Sold_Medium_Low']
-    MediumHighPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_To_Be_Sold_Medium_High']
-    DefaultPercentToBeSold = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Percent_To_Be_Sold_Default']
-
-    #Modify the funds that are manditory to be kept in USDC
-    LowMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Minimum_Required_Low']
-    HighMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Minimum_Required_High']
-    MediumLowMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Minimum_Required_Medium_Low']
-    MediumHighMinimumReqiured = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Minimum_Required_Medium_High']
-    DefaultMinimum = general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['Minimum_Default']
-
-    High_C = price+price*PercentHigh/100>high
-    MHigh_C = price+price*PercentMediumHigh/100>high
-    Low_C =low+low*PercentLow/100>price
-    MLow_C = low+low*PercentMediumLow/100>price
-
-
-    if High_C and State != "H": #High
-        
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "H"
-        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = HighPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = HighSeedSize
-        general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = HighSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = HighPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = HighMinimumReqiured
-
-    elif MHigh_C and State != "MH" and High_C==False: #Medium High
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "MH"
-        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = MediumHighPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = MediumHighSeedSize
-        general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = MediumHighSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = MediumHighPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumHighMinimumReqiured
-
-    elif Low_C and State != "L" and MHigh_C == False and High_C == False: #Low
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "L"
-        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = LowPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = LowSeedSize
-        general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = LowSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = LowPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = LowMinimumReqiured
-
-    elif MLow_C and State != "ML" and MHigh_C == False and High_C == False and Low_C == False: #Medium Low
-        general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "ML"
-        general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = MediumLowPercentChangeTrigger
-        general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = MediumLowSeedSize
-        general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = MediumLowSellThreshHold
-        general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = MediumLowPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumLowMinimumReqiured
-    
-    else: #Default
-        if State!="D" and MHigh_C == False and High_C == False and Low_C == False and MLow_C == False:
-            general_instructions['General_Instructions']['Dynamic_Adjustment_Long']['State'] = "D"
-            general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger'] = DefaultTrigger
-            general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size'] = DefaultSeedSize
-            general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage'] = DefaultSellThreshHold
-            general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold'] = DefaultPercentToBeSold
-            general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
-    return general_instructions,State
+    return general_instructions
 
 
 def LoadInstructions(file_name):

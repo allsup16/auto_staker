@@ -1,6 +1,7 @@
 from coinbase.rest import RESTClient
 from dotenv import load_dotenv
 from datetime import datetime,timezone
+import traceback
 import sheets
 import os
 import helper
@@ -23,8 +24,6 @@ def main():
         general_instructions=helper.LoadInstructions("general_instructions")
         DActive = general_instructions['General_Instructions']['Dynamic_Adjustment_Short']['Active']
         Sheets = general_instructions['General_Instructions']['Sheets']
-        print(Sheets)
-        #row = [trade_dict.get(headers,'') for header in headers]
         if DActive:
             general_instructions=helper.Dynamic_update(client,general_instructions)
         
@@ -35,7 +34,7 @@ def main():
         CounterMax = general_instructions['General_Instructions']['Counter_Max']
 
         ShortActiveBuy = general_instructions['General_Instructions']['Seeds']['Short']['Active_Buy']
-        ShortCounter = general_instructions['General_Instructions']['Seeds']['Short']['Short_Counter_Trigger']
+        ShortCounter = general_instructions['General_Instructions']['Seeds']['Short']['Counter_Trigger']
         ShortSeedSize = general_instructions['General_Instructions']['Seeds']['Short']['Seed_Size']
         ShortActiveSell = general_instructions['General_Instructions']['Seeds']['Short']['Active_Sell']
         ShortSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage']
@@ -43,17 +42,20 @@ def main():
 
 
         LongActiveBuy = general_instructions['General_Instructions']['Seeds']['Long']['Active_Buy']
-        LongCounter = general_instructions['General_Instructions']['Seeds']['Long']['Long_Counter_Trigger']
+        LongCounter = general_instructions['General_Instructions']['Seeds']['Long']['Counter_Trigger']
         LongSeedSize = general_instructions['General_Instructions']['Seeds']['Long']['Seed_Size']
         LongActiveSell = general_instructions['General_Instructions']['Seeds']['Long']['Active_Sell']
         LongSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage']
         LongPecentToBeSold = general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold']
 
         USDCMin=general_instructions['General_Instructions']['USDC']['Minimum_Required']
-
+        print(helper.MyUSDCValue(accounts))
+        value = 100 #helper.MyUSDCValue(accounts)
 
         if Active:
-            if helper.MyUSDCValue(accounts) >= USDCMin:
+            print(value >= USDCMin)
+            if value >= USDCMin:
+                print(value >= USDCMin)
                 if Counter%ShortCounter==0:
                     if ShortActiveBuy:
                         buyReply = helper.BuyBTC(client,ShortSeedSize)
@@ -81,13 +83,13 @@ def main():
                      general_instructions['General_Instructions']['Counter']=1
                 helper.WriteInstructions("general_instructions",general_instructions)
 
-            if Sheets["Active"] or Sheets["Test"]:
-                print('Cred:\n')
-                cred = sheets.sheets_auth(Sheets)
-                print("Insert:\n")
-                sheets.insert_value(Sheets,cred,True)    
+            #if Sheets["Active"] or Sheets["Test"]:
+            #    print('Cred:\n')
+            #    cred = sheets.sheets_auth(Sheets)
+            #    print("Insert:\n")
+            #    sheets.insert_value(Sheets,cred,True)    
     except Exception as e:
-            print(e)
+            print("".join(traceback.format_exception(type(e), e, e.__traceback__)))
 
 if __name__ == "__main__":
     main()

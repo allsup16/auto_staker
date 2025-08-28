@@ -153,9 +153,9 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
     MediumHighMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_Medium_High']
     DefaultMinimum = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Default']
 
-    price = 113480.0
-    high= 113480.0
-    low= 110858.78
+    #price = 113480.0
+    #high= 113480.0
+    #low= 110858.78
 
     High_C = price+price*PercentHigh/100>high
     MHigh_C = price+price*PercentMediumHigh/100>high

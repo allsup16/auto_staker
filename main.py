@@ -39,7 +39,7 @@ def main():
         ShortActiveSell = general_instructions['General_Instructions']['Seeds']['Short']['Active_Sell']
         ShortSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Short']['Sell_Threshold_Percentage']
         ShortPecentToBeSold = general_instructions['General_Instructions']['Seeds']['Short']['Percent_To_Be_Sold']
-
+        ShortUSDCMin=general_instructions['General_Instructions']['Seeds']['Short']['Minimum_Required']
 
         LongActiveBuy = general_instructions['General_Instructions']['Seeds']['Long']['Active_Buy']
         LongCounter = general_instructions['General_Instructions']['Seeds']['Long']['Counter_Trigger']
@@ -47,15 +47,12 @@ def main():
         LongActiveSell = general_instructions['General_Instructions']['Seeds']['Long']['Active_Sell']
         LongSeedSellThresh = general_instructions['General_Instructions']['Seeds']['Long']['Sell_Threshold_Percentage']
         LongPecentToBeSold = general_instructions['General_Instructions']['Seeds']['Long']['Percent_To_Be_Sold']
+        LongUSDCMin=general_instructions['General_Instructions']['Seeds']['Long']['Minimum_Required']
 
-        USDCMin=general_instructions['General_Instructions']['USDC']['Minimum_Required']
-        print(helper.MyUSDCValue(accounts))
-        value = 100 #helper.MyUSDCValue(accounts)
+        value =helper.MyUSDCValue(accounts)
 
         if Active:
-            print(value >= USDCMin)
-            if value >= USDCMin:
-                print(value >= USDCMin)
+            if value >= ShortUSDCMin:
                 if Counter%ShortCounter==0:
                     if ShortActiveBuy:
                         buyReply = helper.BuyBTC(client,ShortSeedSize)
@@ -65,8 +62,8 @@ def main():
                         if ShortActiveSell:
                             sellReply=helper.SellBTCLimit(client,orderInfo,ShortSeedSellThresh,ShortPecentToBeSold)
                 
-                time.sleep(Timer)
-                
+            time.sleep(Timer)
+            if value >= LongUSDCMin:
                 if Counter%LongCounter==0:
                     if LongActiveBuy:
                         buyReply = helper.BuyBTC(client,LongSeedSize)

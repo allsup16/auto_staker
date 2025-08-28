@@ -153,6 +153,10 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
     MediumHighMinimumReqiured = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Required_Medium_High']
     DefaultMinimum = general_instructions['General_Instructions'][Dynamic_Adjustment]['Minimum_Default']
 
+    price = 113480.0
+    high= 113480.0
+    low= 110858.78
+
     High_C = price+price*PercentHigh/100>high
     MHigh_C = price+price*PercentMediumHigh/100>high
     Low_C =low+low*PercentLow/100>price
@@ -170,7 +174,7 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = HighSeedSize
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = HighSellThreshHold
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = HighPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = HighMinimumReqiured
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Minimum_Required']=HighMinimumReqiured
 
 
 
@@ -181,7 +185,7 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = MediumHighSeedSize
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = MediumHighSellThreshHold
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = MediumHighPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumHighMinimumReqiured
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Minimum_Required']= MediumHighMinimumReqiured
 
     elif Low_C and State != "L" and MHigh_C == False and High_C == False: #Low
         State = "L"
@@ -190,7 +194,7 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = LowSeedSize
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = LowSellThreshHold
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = LowPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = LowMinimumReqiured
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Minimum_Required'] = LowMinimumReqiured
 
     elif MLow_C and State != "ML" and MHigh_C == False and High_C == False and Low_C == False: #Medium Low
         State = "ML"
@@ -199,7 +203,7 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = MediumLowSeedSize
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = MediumLowSellThreshHold
         general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = MediumLowPercentToBeSold
-        general_instructions['General_Instructions']['USDC']['Minimum_Required'] = MediumLowMinimumReqiured
+        general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Minimum_Required'] = MediumLowMinimumReqiured
     
     else: #Default
         if State!="D" and MHigh_C == False and High_C == False and Low_C == False and MLow_C == False: 
@@ -209,7 +213,7 @@ def Update(general_instructions,price,Dynamic_Adjustment,low,high,State):
             general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Seed_Size'] = DefaultSeedSize
             general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Sell_Threshold_Percentage'] = DefaultSellThreshHold
             general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Percent_To_Be_Sold'] = DefaultPercentToBeSold
-            general_instructions['General_Instructions']['USDC']['Minimum_Required'] = DefaultMinimum
+            general_instructions['General_Instructions']['Seeds'][Seed_Strategy]['Minimum_Required'] = DefaultMinimum
     return general_instructions
 
 

@@ -2,7 +2,7 @@
     "General_Instructions": {
         "Manual_Stop": true,
         "Timer": 10,
-        "Counter": 46,
+        "Counter": 64,
         "Counter_Max": 336,
         "Seeds": {
             "Short": {
@@ -11,19 +11,18 @@
                 "Seed_Size": 2,
                 "Active_Sell": false,
                 "Sell_Threshold_Percentage": 2,
-                "Percent_To_Be_Sold": 100
+                "Percent_To_Be_Sold": 100,
+                "Minimum_Required": 400
             },
             "Long": {
                 "Active_Buy": false,
                 "Counter_Trigger": 168,
                 "Seed_Size": 1,
                 "Active_Sell": false,
-                "Sell_Threshold_Percentage": 10,
-                "Percent_To_Be_Sold": 93
+                "Sell_Threshold_Percentage": 15,
+                "Percent_To_Be_Sold": 93,
+                "Minimum_Required": 200
             }
-        },
-        "USDC": {
-            "Minimum_Required": 500
         },
         "Candles": {
             "Granularity": "ONE_HOUR",
@@ -32,8 +31,8 @@
         "Dynamic_Adjustment_Short": {
             "Active": true,
             "State": "H",
-            "Percent_Low": 0.5,
-            "Percent_High": 0.5,
+            "Percent_Low": 0.3,
+            "Percent_High": 0.3,
             "Percent_Medium_Low": 2.1,
             "Percent_Medium_High": 2.1,
             "Percent_Low_Change_Trigger": 1,
@@ -65,8 +64,8 @@
         "Dynamic_Adjustment_Long": {
             "Active": true,
             "State": "H",
-            "Percent_Low": 0.5,
-            "Percent_High": 0.5,
+            "Percent_Low": 0.3,
+            "Percent_High": 0.3,
             "Percent_Medium_Low": 2.1,
             "Percent_Medium_High": 2.1,
             "Percent_Low_Change_Trigger": 24,
